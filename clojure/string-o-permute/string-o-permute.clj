@@ -1,14 +1,9 @@
 (require '[clojure.string :as str])
 
-(def input (str/split-lines (slurp *in*)))
-
-(def parse-int #(Integer. (re-find #"\d+" %)))
-
 (def to-lines #(str/join "\n" %))
 
-(defn permute [n w]
-    (apply str (map (fn [[a b]] (apply str [b a])) (partition n w))))
+(defn permute [w]
+    (apply str (map (fn [[a b]] (apply str [b a])) (partition 2 w))))
 
-(let [[n & rest] input]
-    (let [size (parse-int n)]
-        (print (to-lines (map #(permute size %) rest)))))
+(let [[n & rest] (str/split-lines (slurp *in*))]
+    (print (to-lines (map permute rest))))
